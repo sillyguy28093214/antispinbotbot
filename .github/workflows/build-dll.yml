@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build DLL
         run: |
@@ -22,7 +22,7 @@ jobs:
           cl /LD /EHsc /I../imgui ../Bot.cpp ../imgui/imgui.cpp ../imgui/imgui_draw.cpp ../imgui/imgui_widgets.cpp ../imgui/imgui_impl_dx9.cpp ../imgui/imgui_impl_win32.cpp /FeAntiSpinbotDLL.dll
 
       - name: Upload DLL
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AntiSpinbotDLL
           path: build/AntiSpinbotDLL.dll
