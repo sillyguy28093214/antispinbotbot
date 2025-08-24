@@ -1,0 +1,28 @@
+name: Build Anti-Spinbot DLL
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build DLL
+        run: |
+          mkdir build
+          cd build
+          "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+          cl /LD /EHsc /I../imgui ../Bot.cpp ../imgui/imgui.cpp ../imgui/imgui_draw.cpp ../imgui/imgui_widgets.cpp ../imgui/imgui_impl_dx9.cpp ../imgui/imgui_impl_win32.cpp /FeAntiSpinbotDLL.dll
+
+      - name: Upload DLL
+        uses: actions/upload-artifact@v3
+        with:
+          name: AntiSpinbotDLL
+          path: build/AntiSpinbotDLL.dll
